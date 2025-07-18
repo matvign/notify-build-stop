@@ -1,6 +1,6 @@
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2025-latest
+    image: mcr.microsoft.com/mssql/server:2022-CU20-ubuntu-22.04
     container_name: sqlserver
     ports:
       - "1433:1433"
@@ -8,13 +8,10 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
     volumes:
-      - ./sql/init.sql:/init.sql
+      - ./init-db/init.sql:/db/init.sql
+      - ./init-db/entrypoint.sh:/entrypoint.sh
       - sqlserver_data:/var/opt/mssql
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $${SA_PASSWORD} -Q 'SELECT 1'"]
-      interval: 10s
-      retries: 5
-      start_period: 20s
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
 
 volumes:
   sqlserver_data:

@@ -1,5 +1,7 @@
+from src.mail import mail
+
 def main():
-    print("Hello from notify-build-stop!")
+    mail.send_notification("Something", "123", "2024-05-14")
 
 
 if __name__ == "__main__":

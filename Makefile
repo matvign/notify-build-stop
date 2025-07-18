@@ -5,13 +5,13 @@ LINT_TARGETS := src
 FORMAT_TARGETS := src
 PORT = 8000
 
-.PHONY: install nuke clean lint format docker docker-down 
+.PHONY: install nuke clean lint format docker docker-down smtpd
 
 install:
 	@uv lock;
 	@uv sync;
 
-nuke: docker-down nuke
+nuke: docker-down clean
 
 clean:
 	@rm -rf $(VENV) $(LOCK);
@@ -23,6 +23,9 @@ lint:
 format:
 	@echo "Formatting..."
 	@uvx ruff format $(FORMAT_TARGETS)
+
+smtpd:
+	@dotenvx run uv run mail_server.py
 
 docker:
 	@echo "Starting mssql docker container..."

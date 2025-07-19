@@ -4,14 +4,7 @@ USE BuildStopDB;
 
 CREATE TABLE Company (
     Id INT PRIMARY KEY,
-    Name NVARCHAR(100)
-);
-GO
-
-CREATE TABLE StopOrder (
-    Id INT PRIMARY KEY,
-    CompanyId INT,
+    Name NVARCHAR(100),
     CreatedDate DATE,
-    CONSTRAINT FK_Company FOREIGN KEY (CompanyId) REFERENCES Company(id)
 );
 GO

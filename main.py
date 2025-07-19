@@ -1,9 +1,10 @@
-from src.mail import mail
-from src.queries import orders
+import asyncio
+from scraper.scraper import scrape_orders
+# from queries.orders import process_companies
 
 def main():
-    # mail.send_notification("Something", "123", "2024-05-14")
-    orders.query()
+    result = asyncio.run(scrape_orders(page_size=100))
+    print(result)
 
 
 if __name__ == "__main__":

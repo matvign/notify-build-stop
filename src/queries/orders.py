@@ -1,21 +1,23 @@
-import pyodbc
+from src.db import get_cursor
 
-def query():
-    conn = pyodbc.connect(
-        'DRIVER={ODBC Driver 18 for SQL Server};'
-        'SERVER=localhost,1433;'
-        'DATABASE=BuildStopDB;'
-        'UID=sa;'
-        'PWD=YourStrong!Passw0rd;'
-        'TrustServerCertificate=yes;'
-    )
+def process_companies(companies):
+    # there may be multiple stop work orders for the same company
+    # get only the first one that you come across
+    seen_companies = {}
+    filtered_companies = []
 
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT * FROM INFORMATION_SCHEMA.TABLES;
-    """)
-    for row in cursor.fetchall():
-        print(row.TABLE_SCHEMA, row.TABLE_NAME)
+    for company in companies:
+        company_name = company.get('companyName')
+        if company_name not in seen_companies:
+            filtered_companies.append(company)
 
-    cursor.close()
-    conn.close()
+
+def get_companies():
+    with get_cursor() as cursor:
+        sql = """
+        SELECT Company.Name from Company
+        """
+
+        rows = cursor.execute(sql)
+        return rows
+

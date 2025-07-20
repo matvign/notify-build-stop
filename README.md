@@ -49,6 +49,14 @@ The ability to follow the requirements and provide clear documentation.
 
 Note: For ODBC Driver, replace `/ubuntu/$(grep version ...)/` with `/ubuntu/22.04`.
 
+## Formatting and Linting
+This repo uses `ruff` for formatting and linting.
+* Lint: `make lint`
+* Format: `make format`
+
+## Tests
+This repo uses pytest for unit tests. Run `make test` for unit tests.
+
 # Solution Notes
 ## Scraping
 The page populates stop work orders through Javascript, so simple HTML parsing wouldn't be enough. You would need to scrape through it using an automated browser tool like Playwright.

@@ -4,133 +4,130 @@ import math
 
 from src.utils import utils
 
+ENDPOINT = "https://www.nsw.gov.au/api/v1/elasticsearch/prod_content/_search"
 SEMAPHORE_COUNT = 3
-
-ENDPOINT = 'https://www.nsw.gov.au/api/v1/elasticsearch/prod_content/_search'
-
-# Script taken from page when filtering by dates
-SCRIPT = """
-int l = doc[params.open].length;
-boolean isValid = false;
-for (int i = 0; i<l; i++) {
-    JodaCompatibleZonedDateTime open = doc[params.open].get(i);
-    JodaCompatibleZonedDateTime close = doc[params.close].get(i);
-    long open_val = open.getMillis();
-    long close_val = close.getMillis();
-    if (open_val <= params.end && close_val >= params.start) {
-        isValid = true;
-    }    
-}
-
-return isValid;
-"""
 
 sem = asyncio.Semaphore(SEMAPHORE_COUNT)
 
-def get_datefilter(start: int):
-    if not start:
-        return {}
 
-    print(start)
-
-    eod = utils.eod_timestamp()
-    script = {
-        "script": {
-            "script": {
-                "source": SCRIPT,
-                "params": {
-                    "start": start,
-                    "end": eod,
-                    "open": "resource_date",
-                    "close": "resource_date"
-                }
-            }
-        }
-    }
-
-    return script
-
-def get_queryparams(page: int, page_size: int, start: int = 0):
+def get_post_data(page: int, page_size: int):
     from_index = page * page_size
 
-    query = {
-        'query': {
-            'bool': {
-                'must': [],
-                'filter': [
-                    {'term': {'type': 'resource'}},
-                    {'terms': {'agency_name': ['Building Commission NSW']}},
+    return {
+        "query": {
+            "bool": {
+                "must": [],
+                "filter": [
+                    {"term": {"type": "resource"}},
+                    {"terms": {"agency_name": ["Building Commission NSW"]}},
                     {
-                        'terms': {
-                            'name_category': [
-                                'Building work rectification orders',
-                                'Prohibition orders',
-                                'Stop work orders',
-                                'Rectification orders',
+                        "terms": {
+                            "name_category": [
+                                "Building work rectification orders",
+                                "Prohibition orders",
+                                "Stop work orders",
+                                "Rectification orders",
                             ]
                         }
                     },
-                    {'terms': {'name_category': ['Stop work orders']}},
-                    *([get_datefilter(start)] if start else []) 
+                    {"terms": {"name_category": ["Stop work orders"]}},
                 ],
             }
         },
-        'sort': [{'_score': 'desc'}, {'resource_date': 'desc'}],
-        'from': from_index,
-        'size': page_size,
+        "sort": [{"_score": "desc"}, {"resource_date": "asc"}],
+        "from": from_index,
+        "size": page_size,
     }
 
-    return query
 
 def format(hit):
-    source = hit.get('_source', None)
+    source = hit.get("_source", None)
     if not source:
         return None
 
-    title = next(iter(source.get('title', [])), None)
-    summary = next(iter(source.get('summary', [])), None)
-    createdDate = next(iter(source.get('utc_created', [])), None)
+    title = next(iter(source.get("title", [])), None)
+    summary = next(iter(source.get("summary", [])), None)
+    created_date = next(iter(source.get("resource_date", [])), None)
 
-    company_name = ''
+    company_name = ""
     match = utils.company_re.search(title)
     if match:
         company_name = match.group(1)
 
-    return { 'title': title, 'summary': summary, 'createdDate': createdDate, 'companyName': company_name }
+    return {
+        "title": title,
+        "summary": summary,
+        "created_date": created_date,
+        "company_name": company_name,
+    }
+
 
 async def get_page(page: int, page_size: int):
-    async with httpx.AsyncClient() as client:
-        query = get_queryparams(page, page_size)
+    try:
+        async with httpx.AsyncClient() as client:
+            query = get_post_data(page, page_size)
 
-        response = await client.post(ENDPOINT, json=query)
-        data = response.json()
+            response = await client.post(ENDPOINT, json=query)
+            data = response.json()
 
-        results = data.get('hits', {})
-        page_data = results.get('hits', [])
+            results = data.get("hits", {})
+            page_data = results.get("hits", [])
 
-        formatted = [format(i) for i in page_data]
+            formatted = [format(i) for i in page_data]
 
-        return formatted
+            return formatted
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error: {e.response.status_code} - {e.response.text}")
+    except httpx.RequestError as e:
+        print(f"Request error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+    return []
+
+
+async def get_pagination(page_size: int):
+    try:
+        async with httpx.AsyncClient() as client:
+            query = get_post_data(page=0, page_size=1)
+
+            response = await client.post(ENDPOINT, json=query)
+            data = response.json()
+            results = data.get("hits", {})
+
+            # total hits and pages
+            total = results.get("total", {}).get("value", 0)
+            pages_total = math.ceil(total / page_size)
+
+            return pages_total
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error: {e.response.status_code} - {e.response.text}")
+    except httpx.RequestError as e:
+        print(f"Request error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+    return 0
+
 
 async def scrape_orders(page_size: int):
+    # get number of pages we need to fetch
+    pages_total = await get_pagination(page_size)
+
+    if pages_total == 0:
+        print(f"No pages to scrape")
+        return
+
     async with httpx.AsyncClient() as client:
-        # get total pages first
-        query = get_queryparams(page=0, page_size=1)
-
-        response = await client.post(ENDPOINT, json=query)
-        data = response.json()
-        results = data.get('hits', {})
-
-        # total hits and pages
-        total = results.get('total', {}).get('value', 0)
-        pages_total = math.ceil(total / page_size)
-
         # gather tasks to run
         # use semaphore to help with throttling
-        tasks = [utils.throttled_call(sem, get_page, i, page_size) for i in range(0, pages_total)]
-        data_pages = await asyncio.gather(*tasks)
+        tasks = [
+            utils.throttled_call(sem, get_page, i, page_size)
+            for i in range(0, pages_total)
+        ]
+        stop_orders = await asyncio.gather(*tasks)
 
         # flatten results into single list
-        formatted = [item for page in data_pages for item in page]
+        formatted = [item for page in stop_orders for item in page]
 
         return formatted

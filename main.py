@@ -1,9 +1,11 @@
 import asyncio
-from scraper.scraper import scrape_orders
-# from queries.orders import process_companies
+from src.scraper.scraper import scrape_orders
+from src.queries.orders import process_orders
 
 def main():
-    result = asyncio.run(scrape_orders(page_size=100))
+    orders = asyncio.run(scrape_orders(page_size=100))
+    result = process_orders(orders)
+
     print(result)
 
 

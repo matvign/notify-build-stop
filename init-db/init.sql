@@ -3,8 +3,8 @@ GO
 USE BuildStopDB;
 
 CREATE TABLE Company (
-    Id INT PRIMARY KEY,
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
     Name NVARCHAR(100),
-    CreatedDate DATE,
+    CreatedDate DATETIME2,
 );
 GO

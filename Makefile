@@ -5,16 +5,22 @@ LINT_TARGETS := src
 FORMAT_TARGETS := src
 PORT = 8000
 
-.PHONY: install nuke clean lint format docker docker-down smtpd
+.PHONY: install nuke clean main smptd lint format docker docker-down docker-nuke
 
 install:
 	@uv lock;
 	@uv sync;
 
-nuke: docker-down clean
+nuke: docker-nuke clean
 
 clean:
 	@rm -rf $(VENV) $(LOCK);
+
+main:
+	@dotenvx run uv run main.py
+
+smtpd:
+	@dotenvx run uv run mail_server.py
 
 lint:
 	@echo "Linting..."
@@ -24,9 +30,6 @@ format:
 	@echo "Formatting..."
 	@uvx ruff format $(FORMAT_TARGETS)
 
-smtpd:
-	@dotenvx run uv run mail_server.py
-
 docker:
 	@echo "Starting mssql docker container..."
 	@docker compose up -d
@@ -34,3 +37,7 @@ docker:
 docker-down:
 	@echo "Shutting down docker container..."
 	@docker compose down
+
+docker-nuke:
+	@echo "Nuking docker containers and volumes..."
+	@docker compose down --volumes --remove-orphans

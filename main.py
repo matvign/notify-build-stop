@@ -1,13 +1,29 @@
 import asyncio
-from src.scraper.scraper import scrape_orders
-from src.queries.orders import process_orders
+
+from src.scraper import scraper, process
+
+SCHEDULED_INTERVAL = 3600
+PAGE_SIZE = 100
+
+async def scheduled_task():
+    while True:
+        orders = await scraper.scrape_orders(page_size=PAGE_SIZE)
+
+        if orders:
+            result = await process.process_orders(orders)
+            print(f'Inserted {len(result)} new records')
+
+        print(f'Waiting for {SCHEDULED_INTERVAL}s...')
+        await asyncio.sleep(SCHEDULED_INTERVAL)
+
 
 def main():
-    orders = asyncio.run(scrape_orders(page_size=100))
-    result = process_orders(orders)
-
-    print(result)
+    asyncio.run(scheduled_task())
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        print('Starting monitor...')
+        main()
+    except KeyboardInterrupt:
+        print('Stopping monitor...')

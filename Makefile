@@ -5,7 +5,7 @@ LINT_TARGETS := src
 FORMAT_TARGETS := src
 PORT = 8000
 
-.PHONY: install nuke clean main smptd lint format docker docker-down docker-nuke
+.PHONY: install nuke clean main smtpd lint format docker docker-down docker-nuke
 
 install:
 	@uv lock;

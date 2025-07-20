@@ -1,2 +1,7 @@
+ENVIRONMENT="development"
 SMTP_HOST="localhost"
 SMTP_PORT=1025
+DB_SERVER="localhost,1433"
+DB_NAME="BuildStopDB"
+DB_UID="sa"
+DB_PWD="YourStrong!Passw0rd"

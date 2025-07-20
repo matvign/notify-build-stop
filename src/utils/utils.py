@@ -1,6 +1,6 @@
 import asyncio
 import re
-from datetime import datetime, time
+from datetime import datetime
 
 company_re = re.compile("Stop Work Order for (.*)", re.IGNORECASE)
 

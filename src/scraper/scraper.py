@@ -40,13 +40,12 @@ def get_post_data(page: int, page_size: int):
     }
 
 
-def format(hit):
-    source = hit.get("_source", None)
+def format_record(record):
+    source = record.get("_source", None)
     if not source:
         return None
 
-    title = next(iter(source.get("title", [])), None)
-    summary = next(iter(source.get("summary", [])), None)
+    title = next(iter(source.get("title", [])), "")
     created_date = next(iter(source.get("resource_date", [])), None)
 
     company_name = ""
@@ -54,11 +53,12 @@ def format(hit):
     if match:
         company_name = match.group(1)
 
+    if not company_name or not created_date:
+        return None
+
     return {
-        "title": title,
-        "summary": summary,
-        "created_date": created_date,
         "company_name": company_name,
+        "created_date": created_date,
     }
 
 
@@ -73,9 +73,12 @@ async def get_page(page: int, page_size: int):
             results = data.get("hits", {})
             page_data = results.get("hits", [])
 
-            formatted = [format(i) for i in page_data]
+            formatted = [format_record(record) for record in page_data]
 
-            return formatted
+            # filter out any invalid records that don't have a proper company name
+            filtered = [record for record in formatted if record is not None]
+
+            return filtered
     except httpx.HTTPStatusError as e:
         print(f"HTTP error: {e.response.status_code} - {e.response.text}")
     except httpx.RequestError as e:
@@ -111,23 +114,27 @@ async def get_pagination(page_size: int):
 
 
 async def scrape_orders(page_size: int):
+    if page_size <= 0:
+        print("Page size should be at least 1")
+        return []
+
     # get number of pages we need to fetch
     pages_total = await get_pagination(page_size)
 
     if pages_total == 0:
-        print(f"No pages to scrape")
-        return
+        print("No pages to scrape")
+        return []
 
-    async with httpx.AsyncClient() as client:
-        # gather tasks to run
-        # use semaphore to help with throttling
-        tasks = [
-            utils.throttled_call(sem, get_page, i, page_size)
-            for i in range(0, pages_total)
-        ]
-        stop_orders = await asyncio.gather(*tasks)
+    # gather tasks to run
+    # use semaphore to help with throttling
+    tasks = [
+        utils.throttled_call(sem, get_page, i, page_size) for i in range(0, pages_total)
+    ]
+    stop_orders = await asyncio.gather(*tasks)
 
-        # flatten results into single list
-        formatted = [item for page in stop_orders for item in page]
+    # flatten results into single list
+    formatted = [item for page in stop_orders for item in page]
 
-        return formatted
+    print(f"Found {len(formatted)} stop work orders")
+
+    return formatted

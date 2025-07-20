@@ -6,8 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiosmtpd>=1.4.6",
+    "aiosmtplib>=4.0.1",
     "httpx>=0.28.1",
     "pyodbc>=5.2.0",
+    "sqlalchemy>=2.0.41",
 ]
 
 [dependency-groups]

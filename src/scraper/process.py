@@ -6,6 +6,20 @@ from src.mail import mail
 from src.utils import utils
 
 
+def filter_companies(orders, company_names: list[str]):
+    intersect = set(company_names)
+    seen_companies = set()
+    filtered_companies = []
+
+    for company in orders:
+        company_name = company.get("company_name")
+        if company_name not in seen_companies and company_name not in intersect:
+            filtered_companies.append(company)
+            seen_companies.add(company_name)
+
+    return filtered_companies
+
+
 async def process_orders(orders):
     """
     From the scraped orders, filter out companies that already exist in the db.
@@ -17,22 +31,15 @@ async def process_orders(orders):
         return []
 
     company_names = [order.get("company_name") for order in orders]
+    uniq_names = list(dict.fromkeys(company_names))
 
     try:
-        overlapping_companies = select_overlapping_companies(company_names)
+        company_intersect = select_companies_intersect(uniq_names)
     except SQLAlchemyError:
         print("Couldn't get overlapping companies")
         return []
 
-    overlapping_set = set(overlapping_companies)
-    seen_companies = set()
-    filtered_companies = []
-
-    for company in orders:
-        company_name = company.get("company_name")
-        if company_name not in seen_companies and company_name not in overlapping_set:
-            filtered_companies.append(company)
-            seen_companies.add(company_name)
+    filtered_companies = filter_companies(orders, company_intersect)
 
     if len(filtered_companies):
         try:
@@ -45,7 +52,7 @@ async def process_orders(orders):
     return filtered_companies
 
 
-def select_overlapping_companies(companies: list[str]) -> list[str]:
+def select_companies_intersect(companies: list[str]) -> list[str]:
     query = select(company_table.c.Name).where(company_table.c.Name.in_(companies))
 
     with engine.connect() as conn:

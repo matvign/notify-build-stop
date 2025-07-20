@@ -1,6 +1,11 @@
-from sqlalchemy import MetaData, Table
-from src.db.db import engine
+from sqlalchemy import Table, MetaData, Column, Integer, String, DateTime
 
 metadata = MetaData()
 
-company_table = Table("Company", metadata, autoload_with=engine)
+company_table = Table(
+    "Company",
+    metadata,
+    Column("Id", Integer, primary_key=True, autoincrement=True),
+    Column("Name", String(100), unique=True, nullable=False),
+    Column("CreatedDate", DateTime, nullable=False),
+)

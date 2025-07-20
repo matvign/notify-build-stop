@@ -10,6 +10,16 @@ async def throttled_call(sem: asyncio.Semaphore, fn, *args):
         return await fn(*args)
 
 
+def search_company_name(text: str):
+    name = ""
+
+    match = company_re.search(text)
+    if match:
+        name = match.group(1)
+
+    return name
+
+
 def format_datetime(date: datetime) -> str:
     return date.strftime("%d/%m/%Y")
 

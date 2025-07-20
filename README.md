@@ -108,7 +108,7 @@ Email sender and recipient are hardcoded at the moment. An environment variable 
 
 The email notification sends a plain text response. A better message format and possibly HTML email would be appreciated for consumers.
 
-Unit tests were omitted in this task due to limited time. For production code, implementing tests would be essential to ensure correctness and quality.
+Full test coverage was omitted to this task due to limited time. For production code, tests should aim for higher coverage rate to ensure correctness and quality.
 
 Type hints for complex objects and docstrings were omitted for time, but are very useful for readability and maintanence.
 

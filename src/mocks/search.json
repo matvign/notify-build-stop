@@ -1,0 +1,418 @@
+{
+    "took": 5,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 13,
+            "relation": "eq"
+        },
+        "max_score": null,
+        "hits": [
+            {
+                "_index": "prod_content",
+                "_type": "_doc",
+                "_id": "entity:node/75911:en",
+                "_score": 0,
+                "_source": {
+                    "category_weight": [
+                        {
+                            "id": "6566",
+                            "name": "Stop work orders",
+                            "weight": null
+                        }
+                    ],
+                    "content": [
+                        "issued under section 129 home building act 1989 nsw maxim builders pty ltd acn 656 436 225 developer issued with stop work order order relation residential building work located 18a pershing tanilba bay nsw 2319 development developer required ensure all work development stops 5pm 1032024 please read stop work order carefully comply with conditions failure comply with order offence may result criminal proceedings 18a pershing tanilba bay nsw 2319 building commission nsw building commission nsw business housing construction stop work orders construction 01 march 2024order consolidation content dcs cluster digital communications nsw building commissioner file pdf 16922kb parent register building work orders published fri 01032024 1100 exclude from listings excluded"
+                    ],
+                    "grant_is_ongoing": [
+                        false
+                    ],
+                    "nid_pagetop": [
+                        2925
+                    ],
+                    "subtype_index": [
+                        1
+                    ],
+                    "url": [
+                        "\/departments-and-agencies\/building-commission\/register-of-building-work-orders\/stop-work-order-18a-pershing-pl-tanilba-bay-nsw-2319"
+                    ],
+                    "agency_name": [
+                        "Building Commission NSW"
+                    ],
+                    "display_date": [
+                        1709251200
+                    ],
+                    "field_industry": [
+                        "285"
+                    ],
+                    "html_content": [
+                        "<p><strong>Issued under Section 129 of the Home Building Act 1989 (NSW) <\/strong><\/p>Maxim Builders Pty Ltd ACN 656 436 225 (the Developer) is issued with this Stop Work Order (this Order) in relation to residential building work located at 18A Pershing Pl Tanilba Bay NSW 2319 (the Development). The Developer is required to ensure all work at the Development stops by 5pm on 1\/03\/2024 Please read the Stop Work Order carefully and comply with the conditions. Failure to comply with this Order is an offence and may result in criminal proceedings."
+                    ],
+                    "name_audience": [
+                        "Business"
+                    ],
+                    "name_category": [
+                        "Stop work orders"
+                    ],
+                    "name_editorial": [
+                        "Consolidation content",
+                        "DCS Cluster Digital Communications",
+                        "NSW Building Commissioner"
+                    ],
+                    "name_industry": [
+                        "Construction"
+                    ],
+                    "name_resource_type": [
+                        "Order"
+                    ],
+                    "name_topic": [
+                        "Housing and construction"
+                    ],
+                    "nid": [
+                        75911
+                    ],
+                    "nid_parent": [
+                        71800,
+                        72675,
+                        2925
+                    ],
+                    "resource_date": [
+                        1709294400
+                    ],
+                    "status": [
+                        true
+                    ],
+                    "sticky": [
+                        false
+                    ],
+                    "summary": [
+                        "18A Pershing Pl Tanilba Bay NSW 2319"
+                    ],
+                    "tid_agency": [
+                        354
+                    ],
+                    "tid_category": [
+                        6566
+                    ],
+                    "tid_need": [
+                        96
+                    ],
+                    "tid_poi_agency": [
+                        354
+                    ],
+                    "tid_resource_type": [
+                        6569
+                    ],
+                    "tid_topic": [
+                        446
+                    ],
+                    "title": [
+                        "Stop Work Order for Maxim Builders Pty Ltd"
+                    ],
+                    "type": [
+                        "resource"
+                    ],
+                    "utc_changed": [
+                        1741050866
+                    ],
+                    "utc_created": [
+                        1718798959
+                    ],
+                    "uuid": [
+                        "6718e386-1b7a-4c49-9b0d-67ba5ae46a9b"
+                    ],
+                    "vid": [
+                        10697657
+                    ],
+                    "search_api_id": [
+                        "entity:node\/75911:en"
+                    ],
+                    "search_api_datasource": [
+                        "entity:node"
+                    ],
+                    "search_api_language": [
+                        "en"
+                    ],
+                    "search_api_boost": [
+                        0.1
+                    ]
+                },
+                "sort": [
+                    0,
+                    1709294400000
+                ]
+            },
+            {
+                "_index": "prod_content",
+                "_type": "_doc",
+                "_id": "entity:node/76076:en",
+                "_score": 0,
+                "_source": {
+                    "category_weight": [
+                        {
+                            "id": "6566",
+                            "name": "Stop work orders",
+                            "weight": null
+                        }
+                    ],
+                    "content": [
+                        "issued under section 129 home building act 1989 nsw maxim builders pty ltd acn 656 436 225 developer issued with stop work order order relation residential building work located 64 president poincare parade tanilba bay nsw 2319 development developer required ensure all work development stops 5pm 1032024 please read stop work order carefully comply with conditions failure comply with order offence may result criminal proceedings 64 president poincare parade tanilba bay nsw 2319 building commission nsw business citizen public servants housing construction stop work orders 01 march 2024order consolidation content dcs cluster digital communications file pdf 13547kb parent register building work orders published fri 01032024 1100 exclude from listings excluded"
+                    ],
+                    "grant_is_ongoing": [
+                        false
+                    ],
+                    "nid_pagetop": [
+                        2925
+                    ],
+                    "subtype_index": [
+                        1
+                    ],
+                    "url": [
+                        "\/departments-and-agencies\/building-commission\/register-of-building-work-orders\/stop-work-order-for-maxim-builders-pty-ltd"
+                    ],
+                    "agency_name": [
+                        "Building Commission NSW"
+                    ],
+                    "display_date": [
+                        1709251200
+                    ],
+                    "html_content": [
+                        "<p><strong>Issued under Section 129 of the Home Building Act 1989 (NSW)<\/strong><\/p><p>Maxim Builders Pty Ltd ACN 656 436 225 (the Developer) is issued with this Stop Work Order (this Order) in relation to residential building work located at 64 President Poincare Parade Tanilba Bay NSW 2319 (the Development). The Developer is required to ensure all work at the Development stops by 5pm on 1\/03\/2024 Please read the Stop Work Order carefully and comply with the conditions. Failure to comply with this Order is an offence and may result in criminal proceedings.<\/p>"
+                    ],
+                    "name_audience": [
+                        "Business",
+                        "Citizen",
+                        "Public Servants"
+                    ],
+                    "name_category": [
+                        "Stop work orders"
+                    ],
+                    "name_editorial": [
+                        "Consolidation content",
+                        "DCS Cluster Digital Communications"
+                    ],
+                    "name_resource_type": [
+                        "Order"
+                    ],
+                    "name_topic": [
+                        "Housing and construction"
+                    ],
+                    "nid": [
+                        76076
+                    ],
+                    "nid_parent": [
+                        71800,
+                        72675,
+                        2925
+                    ],
+                    "resource_date": [
+                        1709294400
+                    ],
+                    "status": [
+                        true
+                    ],
+                    "sticky": [
+                        false
+                    ],
+                    "summary": [
+                        "64 President Poincare Parade Tanilba Bay NSW 2319"
+                    ],
+                    "tid_agency": [
+                        354
+                    ],
+                    "tid_category": [
+                        6566
+                    ],
+                    "tid_need": [
+                        96,
+                        6415,
+                        6418
+                    ],
+                    "tid_poi_agency": [
+                        354
+                    ],
+                    "tid_resource_type": [
+                        6569
+                    ],
+                    "tid_topic": [
+                        446
+                    ],
+                    "title": [
+                        "Stop Work Order for Maxim Builders Pty Ltd"
+                    ],
+                    "type": [
+                        "resource"
+                    ],
+                    "utc_changed": [
+                        1719268000
+                    ],
+                    "utc_created": [
+                        1719199244
+                    ],
+                    "uuid": [
+                        "adafe431-dc87-4bd4-8827-ee577dd3020d"
+                    ],
+                    "vid": [
+                        6377794
+                    ],
+                    "search_api_id": [
+                        "entity:node\/76076:en"
+                    ],
+                    "search_api_datasource": [
+                        "entity:node"
+                    ],
+                    "search_api_language": [
+                        "en"
+                    ],
+                    "search_api_boost": [
+                        0.1
+                    ]
+                },
+                "sort": [
+                    0,
+                    1709294400000
+                ]
+            },
+            {
+                "_index": "prod_content",
+                "_type": "_doc",
+                "_id": "entity:node/75876:en",
+                "_score": 0,
+                "_source": {
+                    "category_weight": [
+                        {
+                            "id": "6566",
+                            "name": "Stop work orders",
+                            "weight": null
+                        }
+                    ],
+                    "content": [
+                        "issued under section 294 residential apartment buildings compliance enforcement powers act 2020 abdc holdings pty ltd acn 635486494 developer issued with stop work order order relation residential apartment building located 80 yorktown parade maroubra nsw 2035 lot 240 36345 building developer required ensure all work site stops 5pm 2 june 2022 please read stop work order carefully comply with conditions failure comply with order offence may result criminal proceedings 80 yorktown parade maroubra nsw 2035 building commission nsw building commission nsw business housing construction stop work orders construction 02 june 2022order consolidation content dcs cluster digital communications nsw building commissioner file pdf 1833kb parent register building work orders published thu 02062022 1000 exclude from listings excluded"
+                    ],
+                    "grant_is_ongoing": [
+                        false
+                    ],
+                    "nid_pagetop": [
+                        2925
+                    ],
+                    "subtype_index": [
+                        1
+                    ],
+                    "url": [
+                        "\/departments-and-agencies\/building-commission\/register-of-building-work-orders\/stop-work-order-80-yorktown-parade-maroubra"
+                    ],
+                    "agency_name": [
+                        "Building Commission NSW"
+                    ],
+                    "display_date": [
+                        1654128000
+                    ],
+                    "field_industry": [
+                        "285"
+                    ],
+                    "html_content": [
+                        "<p><strong>Issued under Section 29(4) of the Residential Apartment Buildings (Compliance and Enforcement Powers) Act 2020<\/strong><\/p>ABDC Holdings Pty Ltd (ACN 635486494) (the Developer) is issued with this Stop Work Order (this Order) in relation to residential apartment building located at 80 Yorktown Parade Maroubra NSW 2035 (Lot 240, DP 36345) (the building). The Developer is required to ensure all work on the site stops by 5pm on 2 June 2022. \nPlease read the Stop Work Order carefully and comply with the conditions. \nFailure to comply with this Order is an offence and may result in criminal proceedings."
+                    ],
+                    "name_audience": [
+                        "Business"
+                    ],
+                    "name_category": [
+                        "Stop work orders"
+                    ],
+                    "name_editorial": [
+                        "Consolidation content",
+                        "DCS Cluster Digital Communications",
+                        "NSW Building Commissioner"
+                    ],
+                    "name_industry": [
+                        "Construction"
+                    ],
+                    "name_resource_type": [
+                        "Order"
+                    ],
+                    "name_topic": [
+                        "Housing and construction"
+                    ],
+                    "nid": [
+                        75876
+                    ],
+                    "nid_parent": [
+                        71800,
+                        72675,
+                        2925
+                    ],
+                    "resource_date": [
+                        1654171200
+                    ],
+                    "status": [
+                        true
+                    ],
+                    "sticky": [
+                        false
+                    ],
+                    "summary": [
+                        "80 Yorktown Parade Maroubra NSW 2035"
+                    ],
+                    "tid_agency": [
+                        354
+                    ],
+                    "tid_category": [
+                        6566
+                    ],
+                    "tid_need": [
+                        96
+                    ],
+                    "tid_poi_agency": [
+                        354
+                    ],
+                    "tid_resource_type": [
+                        6569
+                    ],
+                    "tid_topic": [
+                        446
+                    ],
+                    "title": [
+                        "Stop work order for ABDC Holdings Pty Ltd"
+                    ],
+                    "type": [
+                        "resource"
+                    ],
+                    "utc_changed": [
+                        1741049086
+                    ],
+                    "utc_created": [
+                        1718798959
+                    ],
+                    "uuid": [
+                        "a75a1f49-d82f-460d-9adf-8a0fabeb41ac"
+                    ],
+                    "vid": [
+                        10697529
+                    ],
+                    "search_api_id": [
+                        "entity:node\/75876:en"
+                    ],
+                    "search_api_datasource": [
+                        "entity:node"
+                    ],
+                    "search_api_language": [
+                        "en"
+                    ],
+                    "search_api_boost": [
+                        0.1
+                    ]
+                },
+                "sort": [
+                    0,
+                    1654171200000
+                ]
+            }
+        ]
+    }
+}

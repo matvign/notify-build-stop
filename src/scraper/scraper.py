@@ -48,11 +48,7 @@ def format_record(record):
     title = next(iter(source.get("title", [])), "")
     created_date = next(iter(source.get("resource_date", [])), None)
 
-    company_name = ""
-    match = utils.company_re.search(title)
-    if match:
-        company_name = match.group(1)
-
+    company_name = utils.search_company_name(title)
     if not company_name or not created_date:
         return None
 
